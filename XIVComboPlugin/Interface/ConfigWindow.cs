@@ -725,10 +725,10 @@ public class ConfigWindow : Window
         if (skillID > 60000)
             return String.Empty;
 
-        Language language = (Language)Service.ClientState.ClientLanguage + 1;
+        Language language = Language.Korean;
         if (language != Language.English)
         {
-            var enActionList = Service.DataManager.GameData.Excel.GetSheet<Action>(Language.English);
+            var enActionList = Service.DataManager.GameData.Excel.GetSheet<Action>(Language.Korean);
             var enSkill = enActionList.GetRow(skillID);
             var level = enSkill.ClassJobLevel != 0 ? $" (lvl {enSkill.ClassJobLevel})" : string.Empty;
             var actionList = Service.DataManager.GameData.Excel.GetSheet<Action>(language);
@@ -754,7 +754,7 @@ public class ConfigWindow : Window
         if (skillID > 60000)
             return String.Empty;
 
-        Language language = (Language)Service.ClientState.ClientLanguage + 1;
+        Language language = Language.Korean;
         var statusList = Service.DataManager.GameData.Excel.GetSheet<Status>(language);
         var status = statusList.GetRow(skillID);
         return status.Name.ExtractText();
