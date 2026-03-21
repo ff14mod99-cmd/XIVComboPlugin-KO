@@ -1,8 +1,8 @@
 {
-  "Name": "XIV Combo",
+  "Name": "XIV Combo-KO",
   "Author": "Attick, daemitus, maintained by Khayle",
   "Description": "This plugin condenses combos and mutually exclusive abilities onto a single button. /pcombo to open menu",
-  "RepoUrl": "https://github.com/MKhayle/XivComboPlugin",
+  "RepoUrl": "https://github.com/ff14mod99-cmd/XIVComboPlugin-KO",
   "Punchline": "PvP, but in PvE!",
   "Tags": [ "Combo", "XIVCombo", "pcombo" ],
   "AcceptsFeedback": true
