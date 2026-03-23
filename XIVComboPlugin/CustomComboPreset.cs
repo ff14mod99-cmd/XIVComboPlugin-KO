@@ -229,6 +229,11 @@ public enum CustomComboPreset
     [SectionCombo("Area of Effect")]
     [CustomComboInfo("Spread Shot Heat", "Replace Spread Shot with Auto Crossbow while overheated.", MCH.JobID)]
     MachinistSpreadShotFeature = 3102,
+    
+    [IconsCombo([MCH.Ricochet,MCH.Checkmate, UTL.ArrowLeft, MCH.GaussRound,MCH.DoubleCheck])]
+    [SectionCombo("Swap Ricochet&Gauss ")]
+    [CustomComboInfo("Swap Gauss&Ricochet", "Replace Gauss with Ricochet while cooldown is low.", MCH.JobID)]
+    MachinistRicochetGaussFeature = 3103,
 
     #endregion
     // ====================================================================================
@@ -465,7 +470,10 @@ public enum CustomComboPreset
     [IconsCombo([VPR.SteelFangs, VPR.ReavingFangs, UTL.ArrowLeft, VPR.DeathRattle, UTL.Blank, VPR.SteelMaw, VPR.ReavingMaw, UTL.ArrowLeft, VPR.LastLash])]
     [CustomComboInfo("Serpent's Fang Feature", "Replace Steel Fangs, Reaving Fangs, Steel Maw, and Reaving Maw with Serpent's Tail after finishing a combo.", VPR.JobID)]
     ViperSteelTailFeature = 4101,
-
+    [SectionCombo("Standard Combos2")]
+    [IconsCombo([VPR.HuntersCoil, VPR.SwiftskinsCoil, UTL.ArrowLeft, VPR.Twinfang,VPR.Twinblood, UTL.Blank, VPR.HuntersDen, VPR.SwiftskinsDen, UTL.ArrowLeft, VPR.Twinfang,VPR.Twinblood])]
+    [CustomComboInfo("Twin Fang&Blood Feature", "Replace Twin Fang And Blood after finishing a combo.", VPR.JobID)]
+    ViperTwinFeature = 4102,
     [SectionCombo("Reawaken")]
     [IconsCombo([VPR.FirstGeneration, VPR.FirstLegacy, VPR.SecondGeneration, VPR.SecondLegacy, VPR.ThirdGeneration, VPR.ThirdLegacy, VPR.FourthGeneration, VPR.FourthLegacy, UTL.Blank])]
     [CustomComboInfo("Generation Legacy Feature", "Replace the Generation skills with their respective Legacies.", VPR.JobID)]

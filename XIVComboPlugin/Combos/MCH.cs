@@ -150,3 +150,26 @@ internal class MachinistHyperchargeCombo : CustomCombo
         return actionID;
     }
 }
+
+internal class MachinistGaussCombo : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.MachinistRicochetGaussFeature;
+
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        if (actionID is not (MCH.GaussRound or MCH.DoubleCheck)) return actionID;
+        var comparision = level >= MCH.Levels.Ricochet
+            ? level >= MCH.Levels.CheckMate
+                ? MCH.Checkmate
+                : MCH.Ricochet
+            : 0;
+        if (comparision == 0)
+        {
+            return actionID;
+        }
+        var coolElapse = GetCooldown(actionID).TotalCooldownElapsed;
+        var comparisionCoolElapsed = GetCooldown(comparision).TotalCooldownElapsed;
+        return comparisionCoolElapsed > coolElapse ? comparision : actionID;
+
+    }
+}

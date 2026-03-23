@@ -184,15 +184,54 @@ internal class ViperCoils : CustomCombo
 
     protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
     {
-        if (actionID == VPR.HuntersCoil || actionID == VPR.SwiftskinsCoil)
+        if (actionID is not (VPR.HuntersCoil or VPR.SwiftskinsCoil)) return actionID;
+        switch (actionID)
         {
-                if (actionID == VPR.HuntersCoil && OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy)
-                    return VPR.ThirdLegacy;
-
-                if (actionID == VPR.SwiftskinsCoil && OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
-                    return VPR.FourthLegacy;
+            case VPR.HuntersCoil:
+            {
+                if (IsEnabled(CustomComboPreset.ViperGenerationLegaciesFeature))
+                {
+                    if (OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy)
+                    {
+                        return VPR.ThirdLegacy;
+                    }
+                }
+                if (IsEnabled(CustomComboPreset.ViperTwinFeature))
+                {
+                    if (HasEffect(VPR.Buffs.HuntersVenom))
+                    {
+                        return OriginalHook(VPR.Twinfang);
+                    }
+                    if (HasEffect(VPR.Buffs.SwiftskinsVenom))
+                    {
+                        return OriginalHook(VPR.Twinblood);
+                    }
+                }
+                break;
+            }
+            case VPR.SwiftskinsCoil:
+            {
+                if (IsEnabled(CustomComboPreset.ViperGenerationLegaciesFeature))
+                {
+                    if (OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
+                    {
+                        return VPR.FourthLegacy;
+                    }
+                }
+                if (IsEnabled(CustomComboPreset.ViperTwinFeature))
+                {
+                    if (HasEffect(VPR.Buffs.SwiftskinsVenom))
+                    {
+                        return OriginalHook(VPR.Twinblood);
+                    }
+                    if (HasEffect(VPR.Buffs.HuntersVenom))
+                    {
+                        return OriginalHook(VPR.Twinfang);
+                    }
+                }
+                break;
+            }
         }
-
         return actionID;
     }
 }
@@ -203,15 +242,51 @@ internal class ViperDens : CustomCombo
 
     protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
     {
-        if (actionID == VPR.HuntersDen || actionID == VPR.SwiftskinsDen)
+        if (actionID is not (VPR.HuntersDen or VPR.SwiftskinsDen)) return actionID;
+        switch (actionID)
         {
-            if (actionID == VPR.HuntersDen && OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy)
-                return VPR.ThirdLegacy;
-
-            if (actionID == VPR.SwiftskinsDen && OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
-                return VPR.FourthLegacy;            
+            case VPR.HuntersDen:
+                if (IsEnabled(CustomComboPreset.ViperGenerationLegaciesFeature))
+                {
+                    if (OriginalHook(VPR.SerpentsTail) == VPR.ThirdLegacy)
+                    {
+                        return VPR.ThirdLegacy;
+                    }
+                }
+                if (IsEnabled(CustomComboPreset.ViperTwinFeature))
+                {
+                    if (HasEffect(VPR.Buffs.FellhuntersVenom))
+                    {
+                        return OriginalHook(VPR.Twinfang);
+                    }
+                    if (HasEffect(VPR.Buffs.FellskinsVenom))
+                    {
+                        return OriginalHook(VPR.Twinblood);
+                    }
+                }
+                
+                break;
+            case VPR.SwiftskinsDen:
+                if (IsEnabled(CustomComboPreset.ViperGenerationLegaciesFeature))
+                {
+                    if (OriginalHook(VPR.SerpentsTail) == VPR.FourthLegacy)
+                    {
+                        return VPR.FourthLegacy;
+                    }
+                }
+                if (IsEnabled(CustomComboPreset.ViperTwinFeature))
+                {
+                    if (HasEffect(VPR.Buffs.FellskinsVenom))
+                    {
+                        return OriginalHook(VPR.Twinblood);
+                    }
+                    if (HasEffect(VPR.Buffs.FellhuntersVenom))
+                    {
+                        return OriginalHook(VPR.Twinfang);
+                    }
+                }
+                break;
         }
-
         return actionID;
     }
 }
