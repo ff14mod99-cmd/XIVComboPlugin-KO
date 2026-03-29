@@ -7,6 +7,7 @@ using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Game.ClientState.Statuses;
 using Dalamud.Utility;
+using FFXIVClientStructs.FFXIV.Client.Game;
 using XIVCombo.Attributes;
 
 namespace XIVCombo.Combos;
@@ -427,4 +428,12 @@ internal abstract partial class CustomCombo
 
         return true;
     }
+    
+    protected unsafe RecastDetail GetRecastGroupInfo(int actionId)
+    {
+        var actionManager = *ActionManager.Instance();
+        var groupDetail = actionManager.GetRecastGroupDetail(actionId);
+        return *groupDetail;
+    }
+    
 }

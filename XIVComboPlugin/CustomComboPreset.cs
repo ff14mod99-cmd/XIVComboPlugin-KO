@@ -220,9 +220,9 @@ public enum CustomComboPreset
     [CustomComboInfo("(Heated) Shot Combo", "Replace Clean Shot with its combo chain.", MCH.JobID)]
     MachinistMainCombo = 3101,
 
-    [IconsCombo([MCH.Hypercharge, UTL.ArrowLeft, MCH.HeatBlast, UTL.Blank, MCH.Buffs.Overheat, UTL.Checkmark])]
+    [IconsCombo([MCH.HeatBlast,UTL.ArrowLeft,MCH.CleanShot,MCH.SplitShot, MCH.SlugShot, UTL.Blank, MCH.Buffs.Overheat, UTL.Checkmark])]
     [SectionCombo("Single Target")]
-    [CustomComboInfo("Hypercharge Blaster", "Replaces Hypercharge with Heat Blast while overheated.", MCH.JobID)]
+    [CustomComboInfo("Hypercharge Blaster", "Replaces Shot Combo with Heat Blast while overheated.", MCH.JobID)]
     MachinistHypercomboFeature = 3108,
 
     [IconsCombo([MCH.SpreadShot, UTL.ArrowLeft, MCH.AutoCrossbow, UTL.Blank, MCH.Buffs.Overheat, UTL.Checkmark])]
@@ -230,7 +230,7 @@ public enum CustomComboPreset
     [CustomComboInfo("Spread Shot Heat", "Replace Spread Shot with Auto Crossbow while overheated.", MCH.JobID)]
     MachinistSpreadShotFeature = 3102,
     
-    [IconsCombo([MCH.Ricochet,MCH.Checkmate, UTL.ArrowLeft, MCH.GaussRound,MCH.DoubleCheck])]
+    [IconsCombo([MCH.Ricochet,MCH.Checkmate, UTL.ArrowLeft,UTL.ArrowRight, MCH.GaussRound,MCH.DoubleCheck])]
     [SectionCombo("Swap Ricochet&Gauss ")]
     [CustomComboInfo("Swap Gauss&Ricochet", "Replace Gauss with Ricochet while cooldown is low.", MCH.JobID)]
     MachinistRicochetGaussFeature = 3103,
@@ -398,7 +398,15 @@ public enum CustomComboPreset
     #endregion
     // ====================================================================================
     #region SAGE
-
+    [IconsCombo([SGE.Diagnosis, UTL.ArrowRight, SGE.Prognosis])]
+    [SectionCombo("Single Target")]
+    [CustomComboInfo("Area Or Single Target Swap", "Replace Area To Single Target when has target.", SGE.JobID)]
+    SageSwapCombo = 4001,
+    
+    [IconsCombo([SGE.Diagnosis, UTL.ArrowRight, SGE.Toxikon])]
+    [SectionCombo("Single Target")]
+    [CustomComboInfo("Toxicon Swap", "Replace Toxicon when has Addersting.", SGE.JobID)]
+    SageToxiconCombo = 4002,
     
     #endregion
     // ====================================================================================
@@ -451,6 +459,11 @@ public enum CustomComboPreset
     [SectionCombo("Aetherflow features")]
     [CustomComboInfo("ED Fester/Necrosis Feature", "Replace Fester/Necrosis with Energy Drain when out of Aetherflow stacks.", SMN.JobID)]
     SummonerEDFesterFeature = 2701,
+    
+    [IconsCombo([SMN.Gemshine,SMN.PreciousBrilliance, UTL.ArrowLeft, SMN.Ruin3,SMN.Ruin4])]
+    [SectionCombo("Run Gem Swap")]
+    [CustomComboInfo("Ruin/Gem Swap Feature", "Replace Ruin/Gem with Buff", SMN.JobID)]
+    SummonerRuinGemFeature = 2703,
 
     [IconsCombo([SMN.Painflare, UTL.ArrowLeft, SMN.EnergySyphon, UTL.Blank, SMN.EnergySyphon, UTL.Cross])]
     [SectionCombo("Aetherflow features")]
@@ -474,6 +487,10 @@ public enum CustomComboPreset
     [IconsCombo([VPR.HuntersCoil, VPR.SwiftskinsCoil, UTL.ArrowLeft, VPR.Twinfang,VPR.Twinblood, UTL.Blank, VPR.HuntersDen, VPR.SwiftskinsDen, UTL.ArrowLeft, VPR.Twinfang,VPR.Twinblood])]
     [CustomComboInfo("Twin Fang&Blood Feature", "Replace Twin Fang And Blood after finishing a combo.", VPR.JobID)]
     ViperTwinFeature = 4102,
+    [SectionCombo("Standard Combos3")]
+    [IconsCombo([VPR.HuntersCoil, VPR.SwiftskinsCoil, UTL.ArrowLeft, VPR.Twinfang,VPR.Twinblood, UTL.Blank, VPR.HuntersDen, VPR.SwiftskinsDen, UTL.ArrowLeft, VPR.Twinfang,VPR.Twinblood])]
+    [CustomComboInfo("Uncoiled Fury Feature", "Replace Writhing Snap to Uncoiled Fury.", VPR.JobID)]
+    ViperUncoiledFuryFeature = 4103,
     [SectionCombo("Reawaken")]
     [IconsCombo([VPR.FirstGeneration, VPR.FirstLegacy, VPR.SecondGeneration, VPR.SecondLegacy, VPR.ThirdGeneration, VPR.ThirdLegacy, VPR.FourthGeneration, VPR.FourthLegacy, UTL.Blank])]
     [CustomComboInfo("Generation Legacy Feature", "Replace the Generation skills with their respective Legacies.", VPR.JobID)]
