@@ -1,6 +1,7 @@
 using System;
 
 using Dalamud.Game.ClientState.JobGauge.Types;
+using FFXIVClientStructs.FFXIV.Client.Game;
 
 namespace XIVCombo.Combos;
 
@@ -97,6 +98,17 @@ internal class MachinistCleanShot : CustomCombo
     {
         if (actionID == MCH.CleanShot || actionID == MCH.HeatedCleanShot)
         {
+            if (IsEnabled(CustomComboPreset.MachinistHypercomboFeature))
+            {
+                if (level >= MCH.Levels.HeatBlast)
+                {
+                    var gauge = GetJobGauge<MCHGauge>();
+                    if (gauge.IsOverheated)
+                    {
+                        return OriginalHook(MCH.HeatBlast);
+                    }
+                }
+            }
             if (comboTime > 0)
             {
                 if (lastComboMove == MCH.SlugShot && level >= MCH.Levels.CleanShot)
@@ -142,11 +154,36 @@ internal class MachinistHyperchargeCombo : CustomCombo
         if (actionID == MCH.Hypercharge)
         {
             var gauge = GetJobGauge<MCHGauge>();
-
-            if (level >= MCH.Levels.HeatBlast && gauge.IsOverheated)
-                return OriginalHook(MCH.HeatBlast);
+            if (gauge.IsOverheated)
+            {
+                if (level >= MCH.Levels.HeatBlast)
+                {
+                    var recastDetail = GetRecastGroupInfo(57);
+                    var recastRemaining = recastDetail.Total - recastDetail.Elapsed;
+                    if (recastRemaining >= 0.5)
+                    {
+                        var ricochet = level >= MCH.Levels.Ricochet ? level >= MCH.Levels.CheckMate ? MCH.Checkmate : MCH.Ricochet : 0;
+                        if (ricochet != 0)
+                        {
+                            var gauss = level >= MCH.Levels.DoubleCheck ? MCH.DoubleCheck : MCH.GaussRound;
+                            var gaussCooldownElapse = GetCooldown(gauss).TotalCooldownElapsed;
+                            var ricochetCoolElapsed = GetCooldown(ricochet).TotalCooldownElapsed;
+                            if (ricochetCoolElapsed > gaussCooldownElapse)
+                            {
+                                return CanUseAction(ricochet) ? ricochet : OriginalHook(MCH.HeatBlast);
+                            }
+                            return CanUseAction(gauss) ? gauss : OriginalHook(MCH.HeatBlast);
+                        }
+                        else
+                        {
+                            var gauss = level >= MCH.Levels.DoubleCheck ? MCH.DoubleCheck : MCH.GaussRound;
+                            return CanUseAction(gauss) ? gauss : OriginalHook(MCH.HeatBlast);
+                        }
+                    }
+                    return OriginalHook(MCH.HeatBlast);
+                }
+            }
         }
-
         return actionID;
     }
 }
@@ -170,6 +207,5 @@ internal class MachinistGaussCombo : CustomCombo
         var coolElapse = GetCooldown(actionID).TotalCooldownElapsed;
         var comparisionCoolElapsed = GetCooldown(comparision).TotalCooldownElapsed;
         return comparisionCoolElapsed > coolElapse ? comparision : actionID;
-
     }
 }
