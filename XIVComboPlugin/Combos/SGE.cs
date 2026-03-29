@@ -1,5 +1,4 @@
 ﻿using Dalamud.Game.ClientState.JobGauge.Types;
-using System;
 
 namespace XIVCombo.Combos;
 
@@ -88,5 +87,82 @@ internal static class SGE
             Pneuma = 90,
             Psyche = 92,
             Philosophia = 100;
+    }
+}
+
+internal class SageToxikonCombo : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SageToxiconCombo;
+
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        if (actionID == OriginalHook(SGE.Dosis) || actionID == OriginalHook(SGE.Dyskrasia))
+        {
+            var gauge = GetJobGauge<SGEGauge>();
+            if (gauge.Addersting > 0)
+            {
+                return OriginalHook(SGE.Toxikon);
+            }
+        }
+        return actionID;
+    }
+}
+
+internal class SageTargetAreaSwap : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SageSwapCombo;
+
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        switch (actionID)
+        {
+            case SGE.Prognosis or SGE.EukrasianPrognosis or SGE.EukrasianPrognosis2 when HasTarget():
+                return TargetIsEnemy() ? actionID : OriginalHook(SGE.Diagnosis);
+            case SGE.Kerachole:
+            {
+                if (level >= SGE.Levels.Taurochole)
+                {
+                    if (CanUseAction(SGE.Taurochole))
+                    {
+                        if (HasTarget() && TargetIsEnemy() == false)
+                        {
+                            return SGE.Taurochole;
+                        }
+                    }
+                }
+                break;
+            }
+            case SGE.Druochole:
+            {
+                if (level >= SGE.Levels.Ixochole)
+                {
+                    if (CanUseAction(SGE.Ixochole))
+                    {
+                        if (HasTarget() == false || TargetIsEnemy())
+                        {
+                            return SGE.Ixochole;
+                        }
+                    }
+                }
+                break;
+            }
+            case SGE.Haima:
+            {
+                if (level >= SGE.Levels.Panhaima)
+                {
+                    if (CanUseAction(SGE.Panhaima))
+                    {
+                        if (HasTarget() == false || TargetIsEnemy())
+                        {
+                            return SGE.Panhaima;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+
+
+        return actionID;
     }
 }
