@@ -116,6 +116,30 @@ internal class SummonerFester : CustomCombo
     }
 }
 
+internal class SummonerRuin : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SummonerRuinGemFeature;
+    protected override uint Invoke(uint actionID, uint lastComboActionID, float comboTime, byte level)
+    {
+        if (actionID == SMN.Ruin || actionID == SMN.Ruin2 || actionID == SMN.Ruin3)
+        {
+            if (CanUseAction(OriginalHook(SMN.Gemshine)))
+            {
+                return OriginalHook(SMN.Gemshine);
+            }
+        }
+        else if (actionID == SMN.TriDisaster)
+        {
+            if (CanUseAction(OriginalHook(SMN.PreciousBrilliance)))
+            {
+                return OriginalHook(SMN.PreciousBrilliance);
+            }
+        }
+
+        return actionID;
+    }
+}
+
 internal class SummonerPainflare : CustomCombo
 {
     protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.SummonerESPainflareFeature;
