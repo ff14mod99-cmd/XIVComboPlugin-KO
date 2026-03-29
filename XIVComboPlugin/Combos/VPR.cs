@@ -178,6 +178,17 @@ internal class ViperMaws : CustomCombo
     }
 }
 
+internal class ViperUncoiled : CustomCombo
+{
+    protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ViperUncoiledFuryFeature;
+
+    protected override uint Invoke(uint actionID, uint lastComboMove, float comboTime, byte level)
+    {
+        if (actionID != VPR.WrithingSnap || level < VPR.Levels.UncoiledFury) return actionID;
+        return CanUseAction(VPR.UncoiledFury) ? VPR.UncoiledFury : actionID;
+    }
+}
+
 internal class ViperCoils : CustomCombo
 {
     protected internal override CustomComboPreset Preset { get; } = CustomComboPreset.ViperGenerationLegaciesFeature;
